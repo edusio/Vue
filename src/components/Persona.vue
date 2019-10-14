@@ -1,38 +1,29 @@
 <template>
   <div>
     <template v-if="persona">
-      <h1 v-text="datosPersona.nombre"></h1>
-      <h2 v-text="datosPersona.correo"></h2>
-      <img :src="datosPersona.foto">
+      tiene
+      <h1>{{nombre}}</h1>
+      <h1>{{persona.email}}</h1>
+      <img :src="persona.picture.large">
     </template>
   </div>
 </template>
 
 <script>
-
-import  axios from 'axios';
+import {mapActions, mapState, mapGetters} from 'vuex';
 
 export default {
 
   mounted() {
-    axios.get('https://randomuser.me/api/').then(respuesta => this.persona = respuesta.data.results[0]);
-  },
-
-  data() {
-    return {
-      persona: null,
-    }
+    //llamada action para obtener datos de forma async
+    this.obtenerPersonasAsync();
   },
 
   computed: {
-    datosPersona() {
-      return {
-        nombre: `${this.persona.name.first} ${this.persona.name.last}`,
-        foto: `${this.persona.picture.large}`,
-        correo: `${this.persona.email} `,
-      }
-    }
-  }
+    ...mapGetters(['persona', 'nombre'])
+  },
+
+  methods: mapActions(["obtenerPersonasAsync"])
 }
 </script>
 
