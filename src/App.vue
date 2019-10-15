@@ -5,6 +5,8 @@
     <tareas></tareas>
     <hr>
     <contador></contador>
+
+    <router-view></router-view>
   </div>
 </template>
 
